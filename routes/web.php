@@ -24,4 +24,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/my-tickets', [BookingController::class, 'index'])->name('my.tickets');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/concerts/{id}/checkout', [BookingController::class, 'checkout'])->name('concerts.checkout');
+    Route::post('/concerts/{id}/pay', [BookingController::class, 'processPayment'])->name('concerts.pay');
+    Route::get('/my-tickets', [BookingController::class, 'index'])->name('my.tickets');
+});
+
 require __DIR__.'/auth.php';

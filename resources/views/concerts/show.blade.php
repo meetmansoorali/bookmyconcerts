@@ -28,16 +28,15 @@
 
                     @auth
                         @if($concert->total_tickets > 0)
-                            <form action="{{ route('bookings.store', $concert->id) }}" method="POST">
-                                @csrf
-                                <div class="mb-3 row align-items-center">
-                                    <label for="ticket_qty" class="col-sm-4 col-form-label fw-bold">Number of Tickets:</label>
-                                    <div class="col-sm-4">
-                                        <input type="number" name="ticket_qty" id="ticket_qty" class="form-control" value="1" min="1" max="{{ min(10, $concert->total_tickets) }}" required>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-dark btn-lg w-100">Confirm & Book Tickets</button>
-                            </form>
+<form action="{{ route('concerts.checkout', $concert->id) }}" method="GET">
+    <div class="mb-3 row align-items-center">
+        <label for="ticket_qty" class="col-sm-4 col-form-label fw-bold">Number of Tickets:</label>
+        <div class="col-sm-4">
+            <input type="number" name="ticket_qty" id="ticket_qty" class="form-control" value="1" min="1" max="{{ min(10, $concert->total_tickets) }}" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-dark btn-lg w-100">Proceed to Checkout</button>
+</form>
                         @else
                             <div class="alert alert-danger mb-0">Sold Out! No tickets available for this event.</div>
                         @endif
