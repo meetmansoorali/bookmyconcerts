@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ConcertController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 // public routes
@@ -28,6 +29,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/concerts/{id}/checkout', [BookingController::class, 'checkout'])->name('concerts.checkout');
     Route::post('/concerts/{id}/pay', [BookingController::class, 'processPayment'])->name('concerts.pay');
     Route::get('/my-tickets', [BookingController::class, 'index'])->name('my.tickets');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::post('/concerts', [AdminController::class, 'storeConcert'])->name('admin.concerts.store');
 });
 
 require __DIR__.'/auth.php';
