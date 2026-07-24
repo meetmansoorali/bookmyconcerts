@@ -24,4 +24,10 @@ class ConcertController extends Controller
 
         return view('concerts.index', compact('concerts'));
     }
+
+    public function show($id)
+{
+    $concert = Concert::with('venue')->findOrFail($id);
+    return view('concerts.show', compact('concert'));
+}
 }
