@@ -14,6 +14,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        return redirect('/')->with('error', 'Unauthorized access! Admin privileges required.');
+        abort(403, 'Unauthorized access. Founder permissions required.');
     }
 }

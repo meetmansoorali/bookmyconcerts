@@ -20,14 +20,14 @@ class ConcertController extends Controller
                   });
         }
 
-        $concerts = $query->orderBy('date_time', 'asc')->get();
-
-        return view('concerts.index', compact('concerts'));
+      $concerts = Concert::with('venue', 'user')->latest()->get();
+    return view('concerts.index', compact('concerts'));
     }
 
-    public function show($id)
+public function show($id)
 {
-    $concert = Concert::with('venue')->findOrFail($id);
+    $concert = Concert::with('venue', 'user')->findOrFail($id);
+    
     return view('concerts.show', compact('concert'));
 }
 }
